@@ -37,6 +37,12 @@
   font-size: 0.95rem;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .header-link {
   text-decoration: none;
   color: #fff;
@@ -50,6 +56,32 @@
 .header-link:hover {
   background: #ff4d4d;
   transform: translateY(-1px);
+}
+
+.header-cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.header-cart__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #ff2b2b;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .main {

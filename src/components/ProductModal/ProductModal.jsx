@@ -1,111 +1,215 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useCart } from "../../context/CartContext";
+
+import OptionGroup from "./OptionGroup";
+import QuantitySelector from "./QuantitySelector";
+
 import "./ProductModal.css";
 
 function ProductModal({ isOpen, item, onClose }) {
-  const [spiceLevel, setSpiceLevel] = useState("กลาง");
-  const [selectedToppings, setSelectedToppings] = useState([]);
 
-  const spiceOptions = [
-    { label: "ไม่เผ็ด", value: "ไม่เผ็ด", price: 0 },
-    { label: "กลาง", value: "กลาง", price: 0 },
-    { label: "เผ็ดมาก", value: "เผ็ดมาก", price: 15 },
-  ];
+  const { addItem } = useCart();
 
-  const toppingOptions = [
-    { label: "ไข่", value: "ไข่", price: 15 },
-    { label: "ชีส", value: "ชีส", price: 20 },
-    { label: "ผักเพิ่มเติม", value: "ผักเพิ่มเติม", price: 10 },
-  ];
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    setSelectedOptions({});
+    setQuantity(1);
+    setError("");
+  }, [isOpen, item]);
+
+  const handleRadio = (groupTitle, value) => {
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [groupTitle]: value,
+    }));
+
+    setError("");
+  };
+
+  const handleCheckbox = (group, value) => {
+    const current = selectedOptions[group.title] || [];
+
+    let next = [...current];
+
+    if (next.includes(value)) {
+      next = next.filter((v) => v !== value);
+    } else {
+      if (group.max && next.length >= group.max) {
+        return;
+      }
+
+      next.push(value);
+    }
+
+    setSelectedOptions((prev) => ({
+      ...prev,
+      [group.title]: next,
+    }));
+
+    setError("");
+  };
 
   const totalPrice = useMemo(() => {
-    const spicePrice = spiceOptions.find((option) => option.value === spiceLevel)?.price || 0;
-    const toppingsPrice = selectedToppings.reduce((sum, topping) => {
-      const toppingOption = toppingOptions.find((option) => option.value === topping);
-      return sum + (toppingOption?.price || 0);
-    }, 0);
+    if (!item) return 0;
 
-    return (item?.price || 0) + spicePrice + toppingsPrice;
-  }, [item, selectedToppings, spiceLevel]);
+  let total = item.price || 0;
 
-  if (!isOpen || !item) {
-    return null;
-  }
+  (item.options || []).forEach((group) => {
+    const selected = selectedOptions[group.title];
 
-  const toggleTopping = (value) => {
-    setSelectedToppings((current) =>
-      current.includes(value) ? current.filter((itemValue) => itemValue !== value) : [...current, value]
-    );
+    if (!selected) return;
+
+    const values = Array.isArray(selected)
+      ? selected
+      : [selected];
+
+    values.forEach((value) => {
+      const found = group.items.find((option) =>
+        typeof option === "string"
+          ? option === value
+          : option.name === value
+      );
+
+      if (found && typeof found === "object") {
+        total += found.price || 0;
+      }
+    });
+  });
+
+  return total;
+}, [item, selectedOptions]);
+if (!isOpen || !item) return null;
+
+const handleSubmit = () => {
+    for (const group of item.options || []) {
+      const value = selectedOptions[group.title];
+
+      if (group.required) {
+        if (group.type === "radio" && !value) {
+          setError(`กรุณาเลือก ${group.title}`);
+          return;
+        }
+
+        if (group.type === "checkbox") {
+          const count = value?.length || 0;
+
+          if (group.min && count < group.min) {
+            setError(
+              `กรุณาเลือก ${group.title} อย่างน้อย ${group.min} รายการ`
+            );
+            return;
+          }
+        }
+      }
+    }
+
+    addItem({
+      id: `${item.id}-${Date.now()}`,
+      productId: item.id,
+      name: item.name,
+      image: item.image,
+      quantity,
+      totalPrice: totalPrice * quantity,
+      options: selectedOptions,
+    });
+
+    onClose();
   };
 
   return (
-    <div className="product-modal__overlay" role="dialog" aria-modal="true" aria-label={`ปรับแต่ง ${item.name}`}>
+    <div className="product-modal__overlay">
       <div className="product-modal">
-        <button type="button" className="product-modal__close" onClick={onClose} aria-label="ปิด">
+
+        <button
+          className="product-modal__close"
+          onClick={onClose}
+          type="button"
+        >
           ×
         </button>
 
         <div className="product-modal__content">
-          <img className="product-modal__image" src={item.image} alt={item.name} />
+
+          <div className="product-modal__image-wrap">
+            <img
+              src={item.image}
+              alt={item.name}
+              className="product-modal__image"
+            />
+          </div>
 
           <div className="product-modal__details">
-            <p className="product-modal__eyebrow">ปรับแต่งเมนู</p>
-            <h3>{item.name}</h3>
-            <p className="product-modal__description">{item.description}</p>
 
-            <div className="product-modal__section">
-              <h4>ระดับความเผ็ด</h4>
-              <div className="product-modal__options">
-                {spiceOptions.map((option) => (
-                  <label key={option.value} className="product-modal__option">
-                    <input
-                      type="radio"
-                      name="spice"
-                      value={option.value}
-                      checked={spiceLevel === option.value}
-                      onChange={() => setSpiceLevel(option.value)}
-                    />
-                    <span>{option.label}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
+            <p className="product-modal__eyebrow">
+              ปรับแต่งเมนู
+            </p>
 
-            <div className="product-modal__section">
-              <h4>ท็อปปิ้ง</h4>
-              <div className="product-modal__options">
-                {toppingOptions.map((option) => (
-                  <label key={option.value} className="product-modal__option">
-                    <input
-                      type="checkbox"
-                      checked={selectedToppings.includes(option.value)}
-                      onChange={() => toggleTopping(option.value)}
-                    />
-                    <span>
-                      {option.label}
-                      {option.price > 0 ? ` (+${option.price} บาท)` : ""}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
+            <h2>{item.name}</h2>
+
+            {Array.isArray(item.description)
+              ? item.description.map((text, index) => (
+                  <p key={index}>{text}</p>
+                ))
+              : item.description && (
+                  <p>{item.description}</p>
+                )}
+
+            <h3 className="product-modal__price">
+              {item.price} บาท
+            </h3>
+
+            {(item.options || []).map((group) => (
+              <OptionGroup
+                key={group.title}
+                group={group}
+                value={selectedOptions[group.title]}
+                onRadio={handleRadio}
+                onCheckbox={handleCheckbox}
+              />
+            ))}
+
+            <QuantitySelector
+              quantity={quantity}
+              setQuantity={setQuantity}
+            />
+
+            {error && (
+              <p className="product-modal__error">
+                {error}
+              </p>
+            )}
 
             <div className="product-modal__footer">
+
               <div>
-                <p className="product-modal__price-label">ยอดรวม</p>
-                <p className="product-modal__price">{totalPrice} บาท</p>
+
+                <small>ยอดรวม</small>
+
+                <h2>
+                  {(totalPrice * quantity).toLocaleString()} บาท
+                </h2>
+
               </div>
 
-              <div className="product-modal__actions">
-                <button type="button" className="product-modal__cancel" onClick={onClose}>
-                  ยกเลิก
-                </button>
-                <button type="button" className="product-modal__submit">
-                  เพิ่มลงตะกร้า
-                </button>
-              </div>
+              <button
+                className="product-modal__submit"
+                type="button"
+                onClick={handleSubmit}
+              >
+                เพิ่มลงตะกร้า
+              </button>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
     </div>
   );

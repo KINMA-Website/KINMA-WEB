@@ -1,7 +1,11 @@
 import "./App.css";
 import MenuSection from "./components/Menu/MenuSection";
+import Cart from "./components/Cart/Cart";
+import { useCart } from "./context/CartContext";
 
 function App() {
+  const { itemCount, setIsOpen } = useCart();
+
   return (
     <div className="app">
       <header className="header">
@@ -9,9 +13,15 @@ function App() {
           <span className="brand-mark">KINMA</span>
           <p>มาม่าเผ็ดเกาหลี</p>
         </div>
-        <a className="header-link" href="#order">
-          สั่งอาหาร
-        </a>
+        <div className="header-actions">
+          <a className="header-link" href="#order">
+            สั่งอาหาร
+          </a>
+          <button type="button" className="header-cart" onClick={() => setIsOpen(true)} aria-label="เปิดตะกร้า">
+            🛒
+            <span className="header-cart__count">{itemCount}</span>
+          </button>
+        </div>
       </header>
 
       <main className="main">
@@ -80,6 +90,8 @@ function App() {
         <p>KINMA • มาม่าเผ็ดเกาหลี</p>
         <p>ติดตามและสั่งผ่าน GrabFood / LINE MAN / ShopeeFood</p>
       </footer>
+
+      <Cart />
     </div>
   );
 }
