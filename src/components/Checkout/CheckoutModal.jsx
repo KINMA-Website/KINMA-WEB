@@ -24,7 +24,7 @@ function CheckoutModal({ open, onClose, onSubmit }) {
 
       setLocation(mapUrl);
 
-      alert("✅ เพิ่มตำแหน่งเรียบร้อย");
+      alert("✅ เพิ่มพิกัด Google Maps เรียบร้อย");
     },
     () => {
       alert("ไม่สามารถดึงตำแหน่งได้");
@@ -63,12 +63,12 @@ function CheckoutModal({ open, onClose, onSubmit }) {
   className="location-btn"
   onClick={getCurrentLocation}
 >
-  📍 ใช้ตำแหน่งปัจจุบัน
+  📍 เพิ่มพิกัด Google Maps
 </button>
 
 {location && (
   <p className="location-success">
-    ✅ เพิ่มตำแหน่งแล้ว
+    ✅ เพิ่มพิกัด Google Maps แล้ว
   </p>
 )}
 
@@ -102,7 +102,10 @@ function CheckoutModal({ open, onClose, onSubmit }) {
       alert("กรุณากรอกชื่อ");
       return;
     }
-
+    if (!location) {
+  alert("กรุณาเพิ่มพิกัด Google Maps");
+  return;
+    }
     if (!phone.trim()) {
       alert("กรุณากรอกเบอร์โทร");
       return;
