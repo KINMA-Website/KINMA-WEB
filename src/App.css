@@ -20,6 +20,17 @@
 
 .brand {
   display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.brand-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
   flex-direction: column;
   gap: 4px;
 }
@@ -245,4 +256,127 @@
   .footer {
     padding: 20px 16px 24px;
   }
+}
+.hero-title{
+  margin:0;
+  font-size:clamp(2.8rem,5vw,4.8rem);
+  font-weight:900;
+  line-height:1.1;
+
+  color:#ff2b2b;
+
+  text-shadow:
+    0 0 10px rgba(255,43,43,.45),
+    0 0 25px rgba(255,43,43,.25);
+}
+
+.hero-title-sub{
+  color:#ff2b2b;
+}
+
+.hero-subtitle{
+  margin:18px 0 28px;
+
+  font-size:1.15rem;
+
+  color:#ffffff;
+}
+
+.hero-info{
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  flex-wrap:wrap;
+
+  margin-bottom:30px;
+
+  color:#f3f3f3;
+}.hero-map{
+  margin-top:25px;
+}
+
+.hero-map iframe{
+  width:100%;
+  height:280px;
+
+  border:none;
+
+  border-radius:18px;
+}
+.other-order-title{
+  margin:30px 0 18px;
+
+  font-size:1.3rem;
+  font-weight:700;
+
+  color:white;
+
+  text-align:center;
+}
+.btn-grab{
+  background:#008a3b;
+  color:white;
+}
+
+.btn-grab:hover{
+  background:#00a84a;
+}
+
+.btn-lineman{
+  background:#00C300;
+  color:white;
+}
+
+.btn-lineman:hover{
+  background:#16d916;
+}
+
+.btn-shopee{
+  background:#EE4D2D;
+  color:white;
+}
+
+.btn-shopee:hover{
+  background:#ff633e;
+}
+.step-card{
+  background:#202020;
+  border-radius:18px;
+  padding:22px;
+  border:1px solid rgba(255,255,255,.08);
+  text-align:left;
+  transition:.25s;
+}
+
+.step-card:hover{
+  transform:translateY(-4px);
+}
+
+.step-title{
+  display:block;
+  background:#ff2b2b;
+  color:#fff;
+  text-align:center;
+  padding:12px;
+  border-radius:12px;
+  font-size:1.15rem;
+  font-weight:700;
+  margin-bottom:20px;
+}
+
+.step-card p{
+  color:#ededed;
+  line-height:1.7;
+  margin:8px 0;
+}
+
+.step-card hr{
+  border:none;
+  border-top:1px solid rgba(255,255,255,.15);
+  margin:18px 0;
+}
+
+.step-warning{
+  color:#ffd54a;
+  font-weight:700;
 }
