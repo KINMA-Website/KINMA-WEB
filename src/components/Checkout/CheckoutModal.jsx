@@ -88,7 +88,7 @@ function CheckoutModal({ open, onClose, onSubmit }) {
     });
   }}
 >
-  ยืนยันการสั่งซื้อ
+  📋 คัดลอกออเดอร์
 </button>
 
         </div>

@@ -16,7 +16,6 @@ function Cart() {
   const [checkoutMessage, setCheckoutMessage] = useState("");
   const [copied, setCopied] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(true);
 
   const buildCheckoutMessage = (customer) => {
   const lines = [
@@ -78,11 +77,17 @@ function Cart() {
     setCopied(true);
 
     window.open(
-      "https://line.me/R/ti/p/@204hgtyd",
-      "_blank"
-    );
+  "https://line.me/R/ti/p/@204hgtyd",
+  "_blank"
+);
 
-    clearCart();
+alert(
+  "✅ คัดลอกออเดอร์เรียบร้อย\n\n" +
+  "กำลังเปิด LINE...\n\n" +
+  "เพียงกด 'วาง' แล้วส่งข้อความ"
+);
+
+// clearCart();
   } catch (err) {
     console.error(err);
     alert("ไม่สามารถคัดลอกข้อความได้");
@@ -162,7 +167,7 @@ function Cart() {
   className="cart-drawer__checkout"
   onClick={() => setCheckoutOpen(true)}
 >
-                {copied ? "เปิด LINE แล้ว" : "สั่งผ่าน LINE"}
+                {copied ? "📋 คัดลอกแล้ว" : "🛒 ดำเนินการสั่งซื้อ"}
               </button>
             </div>
           </div>
