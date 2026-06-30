@@ -6,13 +6,15 @@ import QuantitySelector from "./QuantitySelector";
 
 import "./ProductModal.css";
 
-function ProductModal({ isOpen, item, onClose }) {
+function ProductModal({ isOpen, item, onClose, shopOpen }) {
 
   const { addItem } = useCart();
 
   const [selectedOptions, setSelectedOptions] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [error, setError] = useState("");
+  
+  const [previewImage, setPreviewImage] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -122,6 +124,30 @@ const handleSubmit = () => {
   };
 
   return (
+  <>
+
+    {previewImage && (
+      <div
+        className="image-preview"
+        onClick={() => setPreviewImage(false)}
+      >
+        <button
+          className="image-preview__close"
+          type="button"
+          onClick={() => setPreviewImage(false)}
+        >
+          ✕
+        </button>
+
+        <img
+          src={item.image}
+          alt={item.name}
+          className="image-preview__img"
+          onClick={(e) => e.stopPropagation()}
+        />
+      </div>
+    )}
+
     <div className="product-modal__overlay">
       <div className="product-modal">
 
@@ -137,10 +163,11 @@ const handleSubmit = () => {
 
           <div className="product-modal__image-wrap">
             <img
-              src={item.image}
-              alt={item.name}
-              className="product-modal__image"
-            />
+  src={item.image}
+  alt={item.name}
+  className="product-modal__image"
+  onClick={() => setPreviewImage(true)}
+/>
           </div>
 
           <div className="product-modal__details">
@@ -197,13 +224,17 @@ const handleSubmit = () => {
               </div>
 
               <button
-                className="product-modal__submit"
-                type="button"
-                onClick={handleSubmit}
-              >
-                เพิ่มลงตะกร้า
-              </button>
-
+  className="product-modal__submit"
+  type="button"
+  disabled={!shopOpen}
+  onClick={() => {
+    if (shopOpen) {
+      handleSubmit();
+    }
+  }}
+>
+  {shopOpen ? "เพิ่มลงตะกร้า" : "🔒 ร้านปิด"}
+</button>
             </div>
 
           </div>
@@ -211,8 +242,10 @@ const handleSubmit = () => {
         </div>
 
       </div>
-    </div>
-  );
+        </div>
+
+  </>
+);
 }
 
 export default ProductModal;

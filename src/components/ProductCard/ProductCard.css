@@ -38,14 +38,51 @@
   text-transform: uppercase;
 }
 
-.product-card__badge--recommended {
-  background: rgba(255, 122, 122, 0.95);
-  color: #fff;
+/* ---------- Badge ---------- */
+
+.product-card__badge{
+  position:absolute;
+  top:12px;
+  left:12px;
+
+  padding:7px 14px;
+
+  border-radius:999px;
+
+  color:#fff;
+
+  font-size:.78rem;
+  font-weight:800;
+
+  box-shadow:0 8px 18px rgba(0,0,0,.25);
+
+  z-index:2;
 }
 
-.product-card__badge--sold {
-  background: rgba(255, 255, 255, 0.88);
-  color: #1f1f1f;
+/* 🔥 ขายดี */
+.product-card__badge--ขายดี{
+  background:linear-gradient(135deg,#ff3b30,#ff6b35);
+}
+
+/* ⭐ แนะนำ */
+.product-card__badge--แนะนำ{
+  background:linear-gradient(135deg,#ffb300,#ffd54f);
+  color:#222;
+}
+
+/* 💎 คุ้มสุด */
+.product-card__badge--คุ้มสุด{
+  background:linear-gradient(135deg,#7b2cff,#b24dff);
+}
+
+/* 🌱 เริ่มต้น */
+.product-card__badge--เริ่มต้น{
+  background:linear-gradient(135deg,#00b85c,#00d26a);
+}
+
+/* ❌ ขายหมด */
+.product-card__badge--ขายหมด{
+  background:#555;
 }
 
 .product-card__body {
@@ -135,4 +172,15 @@
   .product-card__button {
     width: 100%;
   }
+}
+.product-card__button:disabled{
+
+  background:#666;
+
+  cursor:not-allowed;
+
+  opacity:.75;
+
+  box-shadow:none;
+
 }

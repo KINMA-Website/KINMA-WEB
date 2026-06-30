@@ -4,7 +4,7 @@ import ProductModal from "../ProductModal/ProductModal";
 import "./MenuSection.css";
 import { menuData } from "../../data/menuData";
 
-function MenuSection() {
+function MenuSection({ shopOpen }) {
   const categories = menuData.categories ?? [];
   const items = menuData.menuItems ?? [];
   const categoryLabels = menuData.categoryLabels ?? {};
@@ -60,13 +60,23 @@ function MenuSection() {
         ) : (
           <div className="menu-grid">
             {visibleItems.map((item) => (
-              <ProductCard key={item.id} item={item} onSelect={handleSelect} />
+              <ProductCard
+  key={item.id}
+  item={item}
+  shopOpen={shopOpen}
+  onSelect={handleSelect}
+/>
             ))}
           </div>
         )}
       </section>
 
-      <ProductModal isOpen={isModalOpen} item={selectedItem} onClose={handleClose} />
+      <ProductModal
+  isOpen={isModalOpen}
+  item={selectedItem}
+  onClose={handleClose}
+  shopOpen={shopOpen}
+/>
     </>
   );
 }

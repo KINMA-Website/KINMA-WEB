@@ -67,7 +67,6 @@ export default [
   id: 2,
   category: "ชุดเมนูสำหรับคุณ",
 
-  featured: true,
   badge: "ขายดี",
 
   name: "💥สำหรับคนมีคู่! ชุดดูโอ้จุก x2 (อิ่มคู่ คุ้มสุด)",
@@ -128,7 +127,7 @@ export default [
 {
   id: 3,
   category: "ชุดเมนูสำหรับคุณ",
-  featured: true,
+  
   badge: "ขายดี",
   name: "🔥ชุดขายดี! มาม่าเผ็ดเกาหลี + น้ำอัดลมถัง❄️ X2 ท็อปปิ้ง🔥",
   description: [

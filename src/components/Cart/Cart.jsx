@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useCart } from "../../context/CartContext";
 import "./Cart.css";
 import CheckoutModal from "../Checkout/CheckoutModal";
+import Loading from "../Loading/Loading";
 
 function Cart() {
   const {
@@ -16,6 +17,7 @@ function Cart() {
   const [checkoutMessage, setCheckoutMessage] = useState("");
   const [copied, setCopied] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const buildCheckoutMessage = (customer) => {
   const lines = [
@@ -87,8 +89,12 @@ customer.note || "-",
 
   setCheckoutMessage(message);
 
+  setLoading(true);
+
   try {
     await navigator.clipboard.writeText(message);
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     setCopied(true);
 
@@ -96,6 +102,8 @@ customer.note || "-",
   "https://line.me/R/ti/p/@204hgtyd",
   "_blank"
 );
+
+setLoading(false);
 
 alert(
   "✅ คัดลอกออเดอร์เรียบร้อย\n\n" +
@@ -105,9 +113,11 @@ alert(
 
 // clearCart();
   } catch (err) {
-    console.error(err);
-    alert("ไม่สามารถคัดลอกข้อความได้");
-  }
+  setLoading(false);
+
+  console.error(err);
+  alert("ไม่สามารถคัดลอกข้อความได้");
+}
 };
 
   return (
@@ -200,6 +210,12 @@ alert(
   handleCheckout(customer);
 }}
     />
+
+    <Loading
+  show={loading}
+  text="กำลังคัดลอกออเดอร์..."
+  />
+  
   </>
 );
 }

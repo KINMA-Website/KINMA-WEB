@@ -3,9 +3,25 @@ import MenuSection from "./components/Menu/MenuSection";
 import Cart from "./components/Cart/Cart";
 import { useCart } from "./context/CartContext";
 import logo from "./assets/logo/LOGO1.png";
+import { useEffect, useState } from "react";
+
+import { listenShopStatus } from "./services/shopService";
 
 function App() {
+
   const { itemCount, setIsOpen } = useCart();
+
+  const [shopOpen, setShopOpen] = useState(true);
+
+useEffect(() => {
+
+  const unsubscribe = listenShopStatus((data) => {
+    setShopOpen(data.isOpen);
+  });
+
+  return () => unsubscribe();
+
+}, []);
 
   return (
     <div className="app">
@@ -27,13 +43,59 @@ function App() {
     </div>
 
     <div className="header-actions">
+      <button
+  type="button"
+  className="header-share"
+  onClick={async () => {
 
-      <a
-        className="header-link"
-        href="#menu"
-      >
-        สั่งอาหาร
-      </a>
+    const shareData = {
+      title: "KINMA มาม่าเผ็ดเกาหลี",
+      text: "🍜 สั่งมาม่าเผ็ดเกาหลี KINMA ได้ที่นี่",
+      url: window.location.href,
+    };
+
+    try {
+
+      if (navigator.share) {
+
+        await navigator.share(shareData);
+
+      } else {
+
+        await navigator.clipboard.writeText(window.location.href);
+
+        alert("✅ คัดลอกลิงก์เว็บไซต์แล้ว");
+
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  }}
+>
+  📤 แชร์ร้าน
+</button>
+
+      {shopOpen ? (
+
+<a
+  className="header-link"
+  href="#menu"
+>
+  สั่งอาหาร
+</a>
+
+) : (
+
+<button
+  className="header-link"
+  disabled
+>
+  ร้านปิด
+</button>
+
+)}
 
       <button
         type="button"
@@ -79,6 +141,18 @@ function App() {
 </header>
 
       <main className="main">
+
+        {!shopOpen && (
+  <div className="shop-closed-banner">
+
+    <h2>🔴 ร้านปิดให้บริการ</h2>
+
+    <p>
+      เปิดทุกวัน 16:00 - 22:00
+    </p>
+
+  </div>
+)}
         <section className="hero" id="home">
           <div className="hero-content">
             <h1 className="hero-title">
@@ -251,7 +325,7 @@ function App() {
 </section>
 
         <div id="menu">
-  <MenuSection />
+  <MenuSection shopOpen={shopOpen} />
 </div>
       </main>
 
@@ -260,7 +334,7 @@ function App() {
         <p>ติดตามและสั่งผ่าน GrabFood / LINE MAN / ShopeeFood</p>
       </footer>
 
-      <Cart />
+      {shopOpen && <Cart />}
     </div>
   );
 }
