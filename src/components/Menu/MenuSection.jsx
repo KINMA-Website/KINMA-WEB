@@ -31,9 +31,9 @@ function MenuSection() {
     <>
       <section id="menu" className="menu-section">
         <div className="menu-section__header">
-          <p className="menu-section__eyebrow">เมนูแนะนำ</p>
-          <h2>เลือกเมนูที่ชอบ</h2>
-          <p>สไตล์ใหม่สำหรับการเรียกดูเมนูอย่างง่ายและทันสมัย</p>
+          <p className="menu-section__eyebrow">💥เมนูแนะนำ💥</p>
+          <h2>สามารถเพิ่มเมนูลงตะกร้าได้เลย🛒</h2>
+          <p>อิ่ม❗ คุ้ม❗ อร่อย❗ แน่นอน🌟</p>
         </div>
 
         {categories.length > 0 ? (

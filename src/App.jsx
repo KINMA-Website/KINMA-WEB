@@ -23,14 +23,48 @@ function App() {
   </div>
 </div>
         <div className="header-actions">
-          <a className="header-link" href="#menu">
-          สั่งอาหาร
-          </a>
-          <button type="button" className="header-cart" onClick={() => setIsOpen(true)} aria-label="เปิดตะกร้า">
-            🛒
-            <span className="header-cart__count">{itemCount}</span>
-          </button>
-        </div>
+
+  <a
+    className="header-menu-btn"
+    href="#how-to-order"
+  >
+    🛒 วิธีสั่งซื้อ
+  </a>
+
+  <a
+    className="header-menu-btn"
+    href="#delivery"
+  >
+    🚚 ส่งฟรี
+  </a>
+
+  <a
+    className="header-menu-btn"
+    href="#reward"
+  >
+    ⭐ สะสมแต้ม
+  </a>
+
+  <a
+    className="header-link"
+    href="#menu"
+  >
+    สั่งอาหาร
+  </a>
+
+  <button
+    type="button"
+    className="header-cart"
+    onClick={() => setIsOpen(true)}
+    aria-label="เปิดตะกร้า"
+  >
+    🛒
+    <span className="header-cart__count">
+      {itemCount}
+    </span>
+  </button>
+
+</div>
       </header>
 
       <main className="main">
@@ -94,7 +128,7 @@ function App() {
 
         <section className="info-strip" id="order">
 
-  <div className="step-card">
+  <div id="how-to-order" className="step-card">
 
     <div className="step-title">
       🛒 วิธีการสั่งซื้อ
@@ -122,7 +156,7 @@ function App() {
 
   </div>
 
-  <div className="step-card">
+  <div id="delivery" className="step-card">
 
     <div className="step-title">
       🚚 ขั้นตอนการส่งฟรี
@@ -142,7 +176,7 @@ function App() {
 
   </div>
 
-  <div className="step-card">
+  <div id="reward" className="step-card">
 
     <div className="step-title">
       ⭐ วิธีการสะสมแต้ม
@@ -205,7 +239,9 @@ function App() {
 
 </section>
 
-        <MenuSection />
+        <div id="menu">
+  <MenuSection />
+</div>
       </main>
 
       <footer className="footer">
