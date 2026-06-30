@@ -6,18 +6,20 @@
   color: #fff7f2;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  background: rgba(17, 17, 17, 0.95);
-  border-bottom: 2px solid #ff2b2b;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
+.header{
+  display:flex;
+  flex-direction:column;
 
+  padding:18px 40px;
+
+  background:rgba(17,17,17,.95);
+
+  border-bottom:2px solid #ff2b2b;
+
+  position:sticky;
+  top:0;
+  z-index:100;
+}
 .brand {
   display: flex;
   align-items: center;
@@ -239,22 +241,54 @@
   margin: 4px 0;
 }
 
-@media (max-width: 768px) {
-  .header {
-    padding: 18px 20px;
+@media(max-width:768px){
+
+  .header{
+
+    padding:14px;
+
   }
 
-  .main {
-    padding: 0 16px 24px;
+  .header-top{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
   }
 
-  .hero-content {
-    padding: 28px 20px;
+  .header-nav{
+
+    width:100%;
+
+    justify-content:space-around;
+
+    gap:8px;
+
+    margin-top:12px;
+
   }
 
-  .info-strip {
-    grid-template-columns: 1fr;
+  .header-menu-btn{
+
+    font-size:.82rem;
+
+    padding:8px 10px;
+
   }
+
+  .header-link{
+
+    padding:10px 14px;
+
+    font-size:.85rem;
+
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -430,4 +464,68 @@
 }
 html{
   scroll-behavior:smooth;
+}
+@media (max-width:768px){
+
+  .header{
+    padding:14px 16px;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+
+  .header-actions{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    flex-wrap:nowrap;
+  }
+
+  .header-menu-btn,
+  .header-link{
+
+    padding:10px 12px;
+
+    font-size:.82rem;
+
+    border-radius:14px;
+
+    white-space:nowrap;
+  }
+
+  .header-cart{
+    padding:10px 14px;
+  }
+
+}
+/* ---------- Header 2 ชั้น ---------- */
+
+.header-top{
+  width:100%;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+}
+
+.header-nav{
+
+  width:100%;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  gap:14px;
+
+  margin-top:14px;
+
+  padding-top:14px;
+
+  border-top:1px solid rgba(255,43,43,.25);
+
 }

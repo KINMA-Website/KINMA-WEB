@@ -10,62 +10,64 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <div className="brand">
-  <img
-    src={logo}
-    alt="KINMA"
-    className="brand-logo"
-  />
 
-  <div className="brand-text">
-    <span className="brand-mark">KINMA</span>
-    <p>มาม่าเผ็ดเกาหลี</p>
+  <div className="header-top">
+
+    <div className="brand">
+      <img
+        src={logo}
+        alt="KINMA"
+        className="brand-logo"
+      />
+
+      <div className="brand-text">
+        <span className="brand-mark">KINMA</span>
+        <p>มาม่าเผ็ดเกาหลี</p>
+      </div>
+    </div>
+
+    <div className="header-actions">
+
+      <a
+        className="header-link"
+        href="#menu"
+      >
+        🔴 สั่งอาหาร
+      </a>
+
+      <button
+        type="button"
+        className="header-cart"
+        onClick={() => setIsOpen(true)}
+        aria-label="เปิดตะกร้า"
+      >
+        🛒
+        <span className="header-cart__count">
+          {itemCount}
+        </span>
+      </button>
+
+    </div>
+
   </div>
-</div>
-        <div className="header-actions">
 
-  <a
-    className="header-menu-btn"
-    href="#how-to-order"
-  >
-    🛒 วิธีสั่งซื้อ
-  </a>
+  <div className="header-nav">
 
-  <a
-    className="header-menu-btn"
-    href="#delivery"
-  >
-    🚚 ส่งฟรี
-  </a>
+    <a className="header-menu-btn" href="#how-to-order">
+      🛒 วิธีสั่ง
+    </a>
 
-  <a
-    className="header-menu-btn"
-    href="#reward"
-  >
-    ⭐ สะสมแต้ม
-  </a>
+    <a className="header-menu-btn" href="#delivery">
+      🚚 ส่งฟรี
+    </a>
 
-  <a
-    className="header-link"
-    href="#menu"
-  >
-    สั่งอาหาร
-  </a>
+    <a className="header-menu-btn" href="#reward">
+      ⭐ สะสมแต้ม
+    </a>
 
-  <button
-    type="button"
-    className="header-cart"
-    onClick={() => setIsOpen(true)}
-    aria-label="เปิดตะกร้า"
-  >
-    🛒
-    <span className="header-cart__count">
-      {itemCount}
-    </span>
-  </button>
+  </div>
 
-</div>
-      </header>
+</header>
 
       <main className="main">
         <section className="hero" id="home">
