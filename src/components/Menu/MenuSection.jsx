@@ -29,7 +29,7 @@ function MenuSection() {
 
   return (
     <>
-      <section className="menu-section" id="menu">
+      <section id="menu" className="menu-section">
         <div className="menu-section__header">
           <p className="menu-section__eyebrow">เมนูแนะนำ</p>
           <h2>เลือกเมนูที่ชอบ</h2>

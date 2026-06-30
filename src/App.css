@@ -190,13 +190,13 @@
 .info-strip div {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  text-align: center;
-  padding: 18px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #f4f4f4;
+  align-items: flex-start;
+  text-align: left;
+
+  padding: 22px;
+  border-radius: 18px;
+
+  background: rgba(255,255,255,.05);
 }
 
 .info-strip strong {
@@ -341,11 +341,15 @@
 }
 .step-card{
   background:#202020;
-  border-radius:18px;
-  padding:22px;
   border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  padding:28px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+
   text-align:left;
-  transition:.25s;
 }
 
 .step-card:hover{
@@ -353,21 +357,26 @@
 }
 
 .step-title{
-  display:block;
-  background:#ff2b2b;
+  display:inline-flex;
+  align-items:center;
+
+  background:#2d2d2d;
   color:#fff;
-  text-align:center;
-  padding:12px;
-  border-radius:12px;
+
+  padding:12px 18px;
+  border-radius:14px;
+
   font-size:1.15rem;
   font-weight:700;
+
   margin-bottom:20px;
 }
 
 .step-card p{
-  color:#ededed;
-  line-height:1.7;
-  margin:8px 0;
+  width:100%;
+  margin:10px 0;
+  line-height:1.8;
+  text-align:left;
 }
 
 .step-card hr{
@@ -379,4 +388,21 @@
 .step-warning{
   color:#ffd54a;
   font-weight:700;
+  margin-top:20px;
+}
+
+.step-card *{
+  text-align:left;
+}
+
+.step-card p{
+  line-height:1.8;
+  margin:10px 0;
+}
+
+.step-card strong{
+  display:inline;
+}
+html{
+  scroll-behavior:smooth;
 }

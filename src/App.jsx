@@ -23,8 +23,8 @@ function App() {
   </div>
 </div>
         <div className="header-actions">
-          <a className="header-link" href="#order">
-            สั่งอาหาร
+          <a className="header-link" href="#menu">
+          สั่งอาหาร
           </a>
           <button type="button" className="header-cart" onClick={() => setIsOpen(true)} aria-label="เปิดตะกร้า">
             🛒
@@ -137,8 +137,7 @@ function App() {
     <p><strong>2️⃣ ระยะทางมากกว่า 10 กิโลเมตร</strong></p>
 
     <p>
-      แนะนำให้สั่งผ่าน <strong>GrabFood</strong>
-      เพื่อความสะดวกในการจัดส่งครับ 😊
+      สามารถสั่งผ่าน <strong>GrabFood, LINE MAN, ShopeeFood</strong> ได้เลยครับ 😊
     </p>
 
   </div>
