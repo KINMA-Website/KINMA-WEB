@@ -243,12 +243,6 @@
 
 @media(max-width:768px){
 
-  .header{
-
-    padding:14px;
-
-  }
-
   .header-top{
 
     width:100%;
@@ -399,6 +393,9 @@
   background:#ff633e;
 }
 .step-card{
+  width:100%;
+  box-sizing:border-box;
+
   background:#202020;
   border:1px solid rgba(255,255,255,.08);
   border-radius:18px;
@@ -418,6 +415,8 @@
 .step-title{
   display:inline-flex;
   align-items:center;
+
+  white-space:nowrap;
 
   background:#2d2d2d;
   color:#fff;
@@ -452,11 +451,6 @@
 
 .step-card *{
   text-align:left;
-}
-
-.step-card p{
-  line-height:1.8;
-  margin:10px 0;
 }
 
 .step-card strong{
@@ -496,6 +490,21 @@ html{
   .header-cart{
     padding:10px 14px;
   }
+
+  .info-strip{
+  grid-template-columns:1fr;
+  }
+  .step-card{
+    padding:18px;
+}
+
+.step-title{
+    font-size:1rem;
+}
+
+.step-card p{
+    font-size:.95rem;
+}
 
 }
 /* ---------- Header 2 ชั้น ---------- */

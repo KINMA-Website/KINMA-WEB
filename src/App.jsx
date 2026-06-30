@@ -32,7 +32,7 @@ function App() {
         className="header-link"
         href="#menu"
       >
-        🔴 สั่งอาหาร
+        สั่งอาหาร
       </a>
 
       <button
@@ -53,15 +53,24 @@ function App() {
 
   <div className="header-nav">
 
-    <a className="header-menu-btn" href="#how-to-order">
+    <a
+      className="header-menu-btn"
+      href="#how-to-order"
+    >
       🛒 วิธีสั่ง
     </a>
 
-    <a className="header-menu-btn" href="#delivery">
+    <a
+      className="header-menu-btn"
+      href="#delivery"
+    >
       🚚 ส่งฟรี
     </a>
 
-    <a className="header-menu-btn" href="#reward">
+    <a
+      className="header-menu-btn"
+      href="#reward"
+    >
       ⭐ สะสมแต้ม
     </a>
 
