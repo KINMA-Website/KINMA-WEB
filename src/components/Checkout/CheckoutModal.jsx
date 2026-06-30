@@ -7,8 +7,30 @@ function CheckoutModal({ open, onClose, onSubmit }) {
   const [address, setAddress] = useState("");
   const [building, setBuilding] = useState("");
   const [note, setNote] = useState("");
+  const [location, setLocation] = useState("");
 
   if (!open) return null;
+  const getCurrentLocation = () => {
+  if (!navigator.geolocation) {
+    alert("อุปกรณ์ไม่รองรับการระบุตำแหน่ง");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords;
+
+      const mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+      setLocation(mapUrl);
+
+      alert("✅ เพิ่มตำแหน่งเรียบร้อย");
+    },
+    () => {
+      alert("ไม่สามารถดึงตำแหน่งได้");
+    }
+  );
+};
 
   return (
     <div className="checkout-overlay">
@@ -36,6 +58,19 @@ function CheckoutModal({ open, onClose, onSubmit }) {
           onChange={(e)=>setAddress(e.target.value)}
           placeholder="บ้านเลขที่ / หอพัก / คอนโด"
         />
+        <button
+  type="button"
+  className="location-btn"
+  onClick={getCurrentLocation}
+>
+  📍 ใช้ตำแหน่งปัจจุบัน
+</button>
+
+{location && (
+  <p className="location-success">
+    ✅ เพิ่มตำแหน่งแล้ว
+  </p>
+)}
 
         <label>🏢 อาคาร / ชั้น / ห้อง</label>
         <input

@@ -21,44 +21,60 @@ function Cart() {
   const lines = [
     "🍜 KINMA มาม่าเผ็ดเกาหลี",
     "",
+    "━━━━━━━━━━━━━━━━━━━━━━",
     "📦 ข้อมูลลูกค้า",
-    `👤 ชื่อ : ${customer.name}`,
-    `📞 เบอร์ : ${customer.phone}`,
-    `📍 ที่อยู่ : ${customer.address}`,
-    `🏢 อาคาร / ชั้น / ห้อง : ${customer.building || "-"}`,
-    `📝 หมายเหตุ : ${customer.note || "-"}`,
+    "━━━━━━━━━━━━━━━━━━━━━━",
     "",
-    "━━━━━━━━━━━━━━━━━━",
-    "",
+    "👤 ชื่อ",
+customer.name,
+"",
+"📞 เบอร์โทร",
+customer.phone,
+"",
+"📍 ที่อยู่",
+customer.address,
+"",
+"📍 พิกัด Google Maps",
+customer.location || "ลูกค้าไม่ได้แชร์ตำแหน่ง",
+"",
+"🏢 อาคาร / ชั้น / ห้อง",
+customer.building || "-",
+"",
+"📝 หมายเหตุ",
+customer.note || "-",
+"",
+    "━━━━━━━━━━━━━━━━━━━━━━",
     "🍜 รายการอาหาร",
+    "━━━━━━━━━━━━━━━━━━━━━━",
     "",
 
-    ...items.map((item) => {
+    ...items.flatMap((item) => {
       const options = item.options
-        ? Object.entries(item.options)
-            .map(([title, value]) =>
-              `${title}\n${
-                Array.isArray(value)
-                  ? value.map((v) => `• ${v}`).join("\n")
-                  : `• ${value}`
-              }`
-            )
-            .join("\n")
-        : "-";
+        ? Object.entries(item.options).flatMap(([title, value]) => [
+            `📌 ${title}`,
+            ...(Array.isArray(value)
+              ? value.map((v) => `   • ${v}`)
+              : [`   • ${value}`]),
+            "",
+          ])
+        : [];
 
       return [
+        "━━━━━━━━━━━━",
         `🍜 ${item.name}`,
-        options,
-        `จำนวน ${item.quantity}`,
-        `รวม ${item.totalPrice * item.quantity} บาท`,
         "",
-      ].join("\n");
+        ...options,
+        `🔢 จำนวน : ${item.quantity}`,
+        `💵 ราคารวม : ${item.totalPrice * item.quantity} บาท`,
+        "",
+      ];
     }),
 
-    "━━━━━━━━━━━━━━━━━━",
-    `💰 ยอดรวม ${totalPrice} บาท`,
+    "━━━━━━━━━━━━━━━━━━━━━━",
+    `💰 ยอดรวมทั้งหมด : ${totalPrice} บาท`,
+    "━━━━━━━━━━━━━━━━━━━━━━",
     "",
-    "ขอบคุณที่อุดหนุน KINMA ❤️",
+    "❤️ ขอบคุณที่อุดหนุน KINMA",
   ];
 
   return lines.join("\n");
