@@ -98,10 +98,7 @@ customer.note || "-",
 
     setCopied(true);
 
-    window.open(
-  "https://line.me/R/ti/p/@204hgtyd",
-  "_blank"
-);
+    window.location.href = "https://line.me/R/ti/p/@204hgtyd";
 
 setLoading(false);
 
